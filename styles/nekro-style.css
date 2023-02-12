@@ -1,0 +1,310 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+:root {
+  --n-white: aliceblue;
+  --n-orange: #d3974f;
+  --n-orange-dark: orangered;
+  --n-orange-light: #e1d0bc;
+  --n-gray: #1e1e1e;
+  --n-gray-dark: #242424;
+  --n-gray-light1: #2d2d2d;
+  --n-gray-light2: #707070;
+  --n-gray-light3: #949494;
+  --red-sunset-blue: #355c7d;
+  --red-sunset-purple: #6c5b7b;
+  --red-sunset-pink: #c06c84;
+  --mini-gradient: linear-gradient(to top, #30e8bf, #ff8235);
+  --n-primary-color: var(--red-sunset-blue);
+  --n-secondary-color: var(--n-gray-light1);
+  --n-background-light: var(--n-gray-light1);
+  --n-background-lighter: var(--n-gray-light2);
+  --n-background-lightest: var(--n-gray-light3);
+  --n-background-dark: var(--n-gray);
+  --n-button-color: var(--n-orange);
+  --n-button-color-dark: var(--n-orange-dark);
+  --n-button-text-color: var(--n-white);
+  --n-text-color: var(--n-orange);
+  --n-text-color-light: var(--n-gray-light2);
+  --n-text-color-lighter: var(--n-white);
+  --n-text-color-dark: var(--n-orange-dark);
+  --n-text-color-darker: var(--n-gray-dark);
+}
+body {
+  background-color: var(--n-background-dark) !important;
+  font-family: "Poppins", sans-serif !important;
+}
+/* text colors::primary */
+h1.ipsType_pageTitle,
+a#elSiteTitle,
+.cForumTitle > a,
+.ipsDataItem_title > a,
+.ipsDataItem_title span a span {
+  color: var(--n-text-color) !important;
+}
+/* text colors::secondary */
+.ipsType_veryLarge,
+.ipsType_richText,
+.ipsType_richText p,
+.ipsDataItem_stats_number,
+.ipsDataItem_stats_type,
+.ipsDataItem_lastPoster__title > a,
+.ipsType_blendLinks,
+.ipsDataItem_subList li a,
+.ipsDataItem_title span i,
+ul[data-role="breadcrumbList"] li a span,
+ul.ipsList_inline li a,
+ul.ipsList_inline li a i,
+ul.ipsList_inline li a span,
+.ipsFollow a {
+  color: var(--n-text-color-light) !important;
+}
+
+/* navbar & others */
+#ipsLayout_header header,
+.ipsButtonBar,
+.ipsBadge {
+  background-color: var(--n-background-light) !important;
+}
+#ipsLayout_header nav {
+  background: var(--n-third-color) !important;
+}
+nav.ipsBreadcrumb_top ul li a,
+nav.ipsBreadcrumb_top ul li a i,
+nav.ipsBreadcrumb_top ul li a span,
+nav ul[data-role="breadcrumbList"] li {
+  color: var(--n-text-color) !important;
+}
+.ipsNavBar_primary > ul > li > a {
+  color: var(--n-text-color) !important;
+}
+.ipsBox {
+  background-color: var(--n-background-light) !important;
+}
+/* [MENU] */
+.ipsMenu {
+  background: var(--n-background-light) !important;
+}
+.ipsType_light,
+.ipsType_large,
+.ipsMenu_title,
+.ipsMenu_item a {
+  color: var(--n-text-color-light) !important;
+}
+/*
+* [BUTTON] ::start
+*/
+/* button background */
+.ipsButton,
+.ipsButton_primary,
+.ipsButton_important,
+.ipsButton_light,
+.ipsButton_veryLight,
+.ipsPagination li a,
+.ipsButtonRow li a,
+.ipsPagination_page a,
+.ipsPagination_last a {
+  background: var(--n-button-color) !important;
+}
+a.ipsCommentCount::before {
+  background: var(--n-button-color-dark) !important;
+}
+
+/* button text color */
+a.ipsButton_veryLight i {
+  color: var(--n-text-color-dark) !important;
+}
+a.ipsButton_veryLight,
+.ipsButton_light a {
+  color: var(--n-button-text-color) !important;
+}
+
+/* Link button color */
+ul#elUserNav li a,
+ul#elUserNav li a i {
+  color: var(--n-button-color) !important;
+}
+a.ipsButton {
+  font-weight: 600 !important;
+}
+/*
+* [BUTTON] ::end
+*/
+
+/*
+* [/FORUM & /DISCOVER] ::start
+*/
+li.ipsDataItem {
+  background: var(--n-background-light) !important;
+  border: none !important;
+}
+div.ipsStreamItem_header div h2 span a {
+  color: var(--n-text-color) !important;
+}
+
+.ipsTabs,
+.ipsFieldRow_content input {
+  background: var(--n-background-light) !important;
+}
+.ipsTabs ul[role="tablist"] li a.ipsTabs_item {
+  background: var(--n-background-lighter) !important;
+}
+.ipsTabs_panel,
+.ipsTabs ul[role="tablist"] li a.ipsTabs_item.ipsTabs_activeItem {
+  background: var(--n-background-lightest) !important;
+}
+/*
+* [/FORUM] ::end
+*/
+
+/*
+* [/TOPIC] ::start
+*/
+
+.ipsSpoiler,
+.ipsSpoiler_contents,
+blockquote.ipsQuote,
+.ipsApp .cke_inner,
+.cke_wysiwyg_div,
+.ipsComposeArea_editor div.ipsType_normal {
+  background: var(--n-background-light) !important;
+}
+
+.ipsSpoiler_header,
+blockquote.ipsQuote .ipsQuote_citation,
+.ipsAreaBackground_light {
+  background: var(--n-background-lighter) !important;
+}
+.ipsSpoiler_header a,
+.ipsSpoiler_header span,
+a[data-action="quoteComment"],
+div[data-role="commentContent"] span.ipsType_reset strong,
+div[data-role="commentContent"] span.ipsType_reset strong time {
+  color: var(--n-text-color-lighter) !important;
+}
+
+aside.ipsComment_author h3 strong a {
+  color: var(--n-text-color-dark) !important;
+}
+/*
+* [/TOPIC] ::end
+*/
+
+/* photo */
+.ipsStreamItem_header a.ipsUserPhoto {
+  display: none !important;
+}
+
+/* main category row */
+li.cForumRow {
+  padding: 0.5rem !important;
+}
+.ipsType_sectionTitle {
+  background: var(--n-) !important;
+}
+.ipsStreamItem_time {
+  background: var(--n-orange) !important;
+  box-shadow: none !important;
+  margin-left: 0 !important;
+}
+.ipsItemStatus.ipsItemStatus_large {
+  background-color: var(--n-orange) !important;
+}
+.ipsStreamItem_condensed .ipsPhotoPanel_mini > div {
+  margin-left: 0 !important;
+}
+.ipsDataList_large,
+.ipsDataItem_main,
+.ipsDataItem_stats,
+.ipsDataItem_withPhoto,
+.ipsDataItem_icon {
+  padding: 0 !important;
+}
+.ipsDataItem {
+  padding: 0.5rem !important;
+}
+
+.ipsDataItem_statsLarge .ipsDataItem_stats_number,
+.ipsDataItem_stats {
+  font-size: 0.75rem !important;
+}
+.ipsDataItem_lastPoster li a.ipsUserPhoto_tiny {
+  display: none !important;
+}
+.ipsDataItem_lastPoster li.ipsType_blendLinks a {
+  font-weight: 500 !important;
+}
+.ipsDataItem_lastPoster li.ipsType_blendLinks a:hover {
+  color: inherit;
+}
+.ipsAreaBackground_reset {
+  background: var(--n-background-light) !important;
+}
+
+.ipsStream.ipsStream_withTimeline {
+  border-left: 0px !important;
+  margin-left: 0px !important;
+}
+.ipsStream_withTimeline .ipsStreamItem {
+  margin-left: 0px !important;
+}
+.ipsStreamItem_contentType {
+  display: none !important;
+}
+.ipsStream_withTimeline
+  .ipsStreamItem.ipsStreamItem_condensed.ipsStreamItem_contentBlock::after {
+  display: none !important;
+}
+
+/* topic related */
+.cTopicList .ipsDataItem_icon {
+  display: none !important;
+}
+form article {
+  padding: 0.5rem !important;
+}
+form article aside {
+  padding: 0 !important;
+  max-width: 150px !important;
+}
+form article aside ul li[data-role="group"] span {
+  font-size: 0.75rem;
+}
+form article aside ul li {
+  margin: 0 !important;
+}
+form article aside ul li[data-role="stats"].ipsMargin_top {
+  margin-top: 0.5rem !important;
+}
+.ipsType_blendLinks a {
+  font-size: 0.8rem !important;
+}
+.ipsComment_author {
+  padding: 0 !important;
+}
+.ipsBadge.ipsBadge_large {
+  display: none !important;
+}
+.cAuthorPane_badge--rank {
+  display: none !important;
+}
+.cPost .cPost_contentWrap {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0.5rem !important;
+}
+.cPost .cPost_contentWrap div[data-role="commentContent"] {
+  padding-bottom: 0 !important;
+}
+.cPost .ipsItemControls {
+  padding: 0 !important;
+}
+
+.ipsImage {
+  max-width: 300px !important;
+  transition: scale 0.3s ease-in !important;
+}
+
+/* topics bottom nav */
+.ipsPager_prev a,
+.ipsPager_next a {
+  color: aliceblue !important;
+}
