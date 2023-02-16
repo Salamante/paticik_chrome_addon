@@ -1,29 +1,13 @@
-const p = () => {
-  return window.location.pathname;
-};
-
+// window.document.addEventListener("load", initGeneral);
 initGeneral();
-if (/\/topic/.test(p())) initTopic();
-
 async function initGeneral() {
-  setTimeout(() => {
-    themeController();
-  }, 1000);
-}
-
-async function themeController() {
-  const is = document
-    .querySelector("#elNavTheme_menu > li:nth-child(1)")
-    .classList.contains("ipsMenu_itemChecked");
-  if (is) return;
-  document
-    .querySelector("#elNavTheme_menu > li:nth-child(1) > form > button")
-    .click();
+  console.log("%cINIT GENERAL", "font-size: 30px; color: tomato;");
+  if (/\/topic/.test(window.location.pathname)) initTopic();
 }
 
 function initTopic() {
   console.log("%cINIT TOPIC", "font-size: 30px; color: tomato;");
-  window.addEventListener("load", onTopicLoad, false);
+  onTopicLoad();
 
   return;
   document.querySelectorAll(".ipsEmbeddedOther > iframe").forEach((e) => {
@@ -45,7 +29,6 @@ function onTopicLoad() {
   observePagination();
   iframeController({ delay: 200 });
   // gifController({ delay: 200 });
-  updateDateElement();
 }
 function addListenerToPagination() {
   const elList = Array.from(
@@ -133,13 +116,8 @@ function observeIframe({ el, cb }) {
 }
 
 function observePagination() {
-  // Select the node that will be observed for mutations
   const target = document.getElementById("comments");
-
-  // Options for the observer (which mutations to observe)
   const config = { attributes: true, childList: true, subtree: false };
-
-  // Callback function to execute when mutations are observed
   const cb = (mutationList, observer) => {
     for (const mutation of mutationList) {
       if (
@@ -155,24 +133,10 @@ function observePagination() {
     }
   };
 
-  // Create an observer instance linked to the callback function
   const observer = new MutationObserver(cb);
-
-  // Start observing the target node for configured mutations
   observer.observe(target, config);
 
   // observer.disconnect();
-}
-
-function updateDateElement() {
-  const elList = Array.from(document.querySelectorAll("time"));
-  elList.forEach((e) => {
-    if (!!e.getAttribute("date-updated")) return;
-    if (!!e.getAttribute("datetime")) {
-      e.innerText = `${e.innerText} - ${e.getAttribute("title").split(" ")[1]}`;
-      e.setAttribute("date-updated", true);
-    }
-  });
 }
 
 /* Utils */

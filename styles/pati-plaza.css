@@ -1,32 +1,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 :root {
   --n-white: aliceblue;
-  --n-orange: #d3974f;
-  --n-orange-dark: orangered;
+  --n-orange: #f0a046;
+  --n-orange-dark: #c9720e;
   --n-orange-light: #e1d0bc;
-  --n-gray: #1e1e1e;
+  --n-gray: #8a8a8a;
   --n-gray-dark: #242424;
-  --n-gray-light1: #2d2d2d;
-  --n-gray-light2: #707070;
-  --n-gray-light3: #949494;
+  --n-gray-light1: #c9c9c9;
+  --n-gray-light2: #e3e3e3;
+  --n-gray-light3: #f5f5f5;
   --red-sunset-blue: #355c7d;
   --red-sunset-purple: #6c5b7b;
   --red-sunset-pink: #c06c84;
   --mini-gradient: linear-gradient(to top, #30e8bf, #ff8235);
   --n-primary-color: var(--red-sunset-blue);
   --n-secondary-color: var(--n-gray-light1);
-  --n-background-light: var(--n-gray-light1);
-  --n-background-lighter: var(--n-gray-light2);
-  --n-background-lightest: var(--n-gray-light3);
-  --n-background-dark: var(--n-gray);
-  --n-button-color: var(--n-orange);
-  --n-button-color-dark: var(--n-orange-dark);
-  --n-button-text-color: var(--n-white);
-  --n-text-color: var(--n-orange);
-  --n-text-color-light: var(--n-gray-light2);
-  --n-text-color-lighter: var(--n-white);
-  --n-text-color-dark: var(--n-orange-dark);
-  --n-text-color-darker: var(--n-gray-dark);
+  --n-background-light: #6200ee;
+  --n-background-lighter: #b580c4;
+  --n-background-lightest: #eb52c4;
+  --n-background-dark: #3700b3;
+  --n-button-color: #03dac6;
+  --n-button-color-dark: #018786;
+  --n-button-text-color: #000000;
+  --n-text-color: var(--n-white);
+  --n-text-color-light: var(--n-white);
+  --n-text-color-lighter: #474747;
+  --n-text-color-dark: #04bdab;
+  --n-text-color-darker: var(--n-white);
 }
 body {
   background-color: var(--n-background-dark) !important;
@@ -37,7 +37,8 @@ h1.ipsType_pageTitle,
 a#elSiteTitle,
 .cForumTitle > a,
 .ipsDataItem_title > a,
-.ipsDataItem_title span a span {
+.ipsDataItem_title span a span,
+a[data-mentionid] {
   color: var(--n-text-color) !important;
 }
 /* text colors::secondary */
@@ -54,7 +55,8 @@ ul[data-role="breadcrumbList"] li a span,
 ul.ipsList_inline li a,
 ul.ipsList_inline li a i,
 ul.ipsList_inline li a span,
-.ipsFollow a {
+.ipsFollow a,
+.ipsItemStatus:not(.ipsItemStatus_large) {
   color: var(--n-text-color-light) !important;
 }
 
@@ -109,8 +111,9 @@ a.ipsCommentCount::before {
 }
 
 /* button text color */
+a.ipsButton_link,
 a.ipsButton_veryLight i {
-  color: var(--n-text-color-dark) !important;
+  color: var(--n-text-color-darker) !important;
 }
 a.ipsButton_veryLight,
 .ipsButton_light a {
@@ -164,28 +167,61 @@ div.ipsStreamItem_header div h2 span a {
 blockquote.ipsQuote,
 .ipsApp .cke_inner,
 .cke_wysiwyg_div,
-.ipsComposeArea_editor div.ipsType_normal {
+.ipsComposeArea_editor div.ipsType_normal,
+.ipsHovercard {
   background: var(--n-background-light) !important;
 }
 
 .ipsSpoiler_header,
 blockquote.ipsQuote .ipsQuote_citation,
-.ipsAreaBackground_light {
+.ipsAreaBackground_light,
+.ipsComposeArea_dummy {
   background: var(--n-background-lighter) !important;
 }
 .ipsSpoiler_header a,
 .ipsSpoiler_header span,
 a[data-action="quoteComment"],
 div[data-role="commentContent"] span.ipsType_reset strong,
-div[data-role="commentContent"] span.ipsType_reset strong time {
-  color: var(--n-text-color-lighter) !important;
+div[data-role="commentContent"] span.ipsType_reset strong time,
+a.ipsShareButton,
+a.ipsShareButton span i,
+.ipsType_richText a {
+  color: var(--n-text-color-darker) !important;
 }
 
 aside.ipsComment_author h3 strong a {
   color: var(--n-text-color-dark) !important;
 }
+a[data-mentionid] {
+  background: var(--n-background-lighter) !important;
+}
 /*
 * [/TOPIC] ::end
+*/
+
+/*
+* [/SETTINGS] ::start
+*/
+.ipsSideMenu_list li a:not(.ipsSideMenu_itemActive) {
+  color: var(--n-text-color-light) !important;
+}
+a.ipsSideMenu_itemActive {
+  background: var(--n-button-color-dark) !important;
+}
+a.ipsSideMenu_item:not(.ipsSideMenu_itemActive):hover,
+ul.ipsSideMenu_list li.ipsSideMenu_item a:hover {
+  background: var(--n-button-color) !important;
+  color: var(--n-white) !important;
+}
+ul.ipsDataList li.ipsDataItem div.ipsDataItem_main,
+ul.ipsDataList li.ipsDataItem div h4 strong {
+  color: var(--n-text-color-light) !important;
+}
+ul.ipsDataList li.ipsDataItem div.ipsDataItem_main a {
+  color: var(--n-text-color-lighter) !important;
+}
+/*
+* [/SETTINGS] ::end
 */
 
 /* photo */
@@ -201,12 +237,12 @@ li.cForumRow {
   background: var(--n-) !important;
 }
 .ipsStreamItem_time {
-  background: var(--n-orange) !important;
+  background: var(--n-background-lighter) !important;
   box-shadow: none !important;
   margin-left: 0 !important;
 }
 .ipsItemStatus.ipsItemStatus_large {
-  background-color: var(--n-orange) !important;
+  background-color: var(--n-background-lighter) !important;
 }
 .ipsStreamItem_condensed .ipsPhotoPanel_mini > div {
   margin-left: 0 !important;

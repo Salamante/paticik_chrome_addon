@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+main {
+  margin: 0;
+  padding: 0;
+}
+body {
+}
+
+.wrapper {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: lightgray;
+  padding: 1rem;
+}
+.title {
+  font-weight: 600;
+  color: gray;
+}
+
+button {
+  background: orange;
+  width: 120px;
+  height: 40px;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+}
+button:hover {
+  cursor: pointer;
+}
+.btn-active {
+  background: orangered;
+}
