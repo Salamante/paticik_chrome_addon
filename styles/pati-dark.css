@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* @import "./fontawesome6/css/all.min.css"; */
 :root {
   --n-white: aliceblue;
   --n-orange: #d3974f;
@@ -27,10 +28,11 @@
   --n-text-color-lighter: var(--n-white);
   --n-text-color-dark: var(--n-orange-dark);
   --n-text-color-darker: var(--n-gray-dark);
+  --light-bg-text-color: var(--n-gray);
 }
 body {
   background-color: var(--n-background-dark) !important;
-  font-family: "Poppins", sans-serif !important;
+  /* font-family: "Poppins", sans-serif !important; */
 }
 body span[data-role="streamTitle"],
 body span[data-role="streamBlurb"] {
@@ -44,7 +46,8 @@ h1.ipsType_pageTitle,
 a#elSiteTitle,
 .cForumTitle > a,
 .ipsDataItem_title > a,
-.ipsDataItem_title span a span {
+.ipsDataItem_title span a span span.ipsNotificationCount,
+h4.ipsDataItem_title span a span {
   color: var(--n-text-color) !important;
 }
 /* text colors::secondary */
@@ -58,15 +61,18 @@ a#elSiteTitle,
 .ipsDataItem_subList li a,
 .ipsDataItem_title span i,
 ul[data-role="breadcrumbList"] li a span,
-ul.ipsList_inline li a,
 ul.ipsList_inline li a i,
-ul.ipsList_inline li a span,
+ul.ipsList_inline li a span:not([data-notificationtype]),
 .ipsFollow a,
-.ipsItemStatus:not(.ipsItemStatus_large) {
+.ipsItemStatus:not(.ipsItemStatus_large),
+div#elWarningInfo div span,
+div#elWarningInfo div h2,
+li.ipsDataItem span strong,
+li.ipsDataItem span a {
   color: var(--n-text-color-light) !important;
 }
 
-/* navbar & others */
+/* navbar & profile & others */
 #ipsLayout_header header,
 .ipsButtonBar,
 .ipsBadge {
@@ -84,9 +90,22 @@ nav ul[data-role="breadcrumbList"] li {
 .ipsNavBar_primary > ul > li > a {
   color: var(--n-text-color) !important;
 }
+.ipsWidget_title,
+div#elProfileStats {
+  background: var(--n-background-lighter) !important;
+}
 .ipsBox {
   background-color: var(--n-background-light) !important;
 }
+/* hover over cards */
+div.cUserHovercard div p,
+div.cUserHovercard div h2 a,
+div.cUserHovercard div h2 p,
+div.cUserHovercard div div div p,
+div.cUserHovercard div div div div p.ipsType_semiBold {
+  color: var(--n-text-color-light) !important;
+}
+
 /* [MENU] */
 .ipsMenu {
   background: var(--n-background-light) !important;
@@ -112,7 +131,8 @@ nav ul[data-role="breadcrumbList"] li {
 .ipsPagination_last a {
   background: var(--n-button-color) !important;
 }
-a.ipsCommentCount::before {
+a.ipsCommentCount::before,
+.ipsApp .ipsNotificationCount {
   background: var(--n-button-color-dark) !important;
 }
 
@@ -139,7 +159,7 @@ a.ipsButton {
 */
 
 /*
-* [/FORUM & /DISCOVER] ::start
+****** [/FORUM & /DISCOVER] ::start
 */
 li.ipsDataItem {
   background: var(--n-background-light) !important;
@@ -160,8 +180,26 @@ div.ipsStreamItem_header div h2 span a {
 .ipsTabs ul[role="tablist"] li a.ipsTabs_item.ipsTabs_activeItem {
   background: var(--n-background-lightest) !important;
 }
+.ipsStream_withTimeline .ipsStreamItem_contentBlock:after {
+  display: none !important;
+}
+
+.ipsPhotoPanel.ipsPhotoPanel_mini div,
+div.ipsStreamItem_snippet,
+ul.ipsList_inline {
+  margin-left: 0 !important;
+}
+
+/* *@editor */
+div[data-ipseditor] {
+  border: none !important;
+}
+div[data-role="editorComposer"] div.ipsComposeArea_dummy {
+  color: var(--light-bg-text-color) !important;
+}
+
 /*
-* [/FORUM] ::end
+***** [/FORUM & DISCOVER] ::end
 */
 
 /*
@@ -339,6 +377,21 @@ form article aside ul li[data-role="stats"].ipsMargin_top {
 .ipsImage {
   max-width: 300px !important;
   transition: scale 0.3s ease-in !important;
+}
+
+/* @flash message */
+div#elFlashMessage {
+  background: var(--n-button-color-dark) !important;
+  box-shadow: none !important;
+}
+div#elFlashMessage div div[data-role="flashMessage"] {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+div#elFlashMessage div div[data-role="flashMessage"] span img.ipsUserPhoto {
+  width: 35px !important;
+  height: 35px !important;
 }
 
 /* topics bottom nav */
