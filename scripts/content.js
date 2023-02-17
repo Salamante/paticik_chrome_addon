@@ -1,19 +1,12 @@
 initGeneral();
 async function initGeneral() {
-  console.log(
-    "%cINIT GENERAL",
-    "font-size: 30px; color: tomato;",
-    chrome.runtime.getURL("jeo.jpg")
-  );
+  console.log("%cINIT GENERAL", "font-size: 30px; color: tomato;");
 
   if (/\/topic/.test(window.location.pathname)) initTopic();
 }
 
 function initTopic() {
   console.log("%cINIT TOPIC", "font-size: 30px; color: tomato;");
-  document
-    .querySelectorAll("div.cAuthorPane_photoWrap > a > img")
-    .forEach((e) => (e.src = chrome.runtime.getURL("jeo.jpg")));
   onTopicLoad();
 
   return;
