@@ -1,291 +1,164 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-/* @import "./fontawesome6/css/all.min.css"; */
 :root {
-  --n-white: aliceblue;
-  --n-orange: #d3974f;
-  --n-orange-dark: orangered;
-  --n-orange-light: #e1d0bc;
-  --n-gray: #1e1e1e;
-  --n-gray-dark: #242424;
-  --n-gray-light1: #2d2d2d;
-  --n-gray-light2: #9da0a1;
-  --n-gray-light3: #949494;
-  --red-sunset-blue: #355c7d;
-  --red-sunset-purple: #6c5b7b;
-  --red-sunset-pink: #c06c84;
-  --mini-gradient: linear-gradient(to top, #30e8bf, #ff8235);
-  --n-primary-color: var(--red-sunset-blue);
-  --n-secondary-color: var(--n-gray-light1);
-  --n-background-light: var(--n-gray-light1);
-  --n-background-lighter: var(--n-gray-light2);
-  --n-background-lightest: var(--n-gray-light3);
-  --n-background-dark: var(--n-gray);
-  --n-button-color: var(--n-orange);
-  --n-button-color-dark: var(--n-orange-dark);
-  --n-button-text-color: var(--n-white);
-  --n-text-color: var(--n-orange);
-  --n-text-color-light: var(--n-gray-light2);
-  --n-text-color-lighter: var(--n-white);
-  --n-text-color-dark: var(--n-orange-dark);
-  --n-text-color-darker: var(--n-gray-dark);
-  --light-bg-text-color: var(--n-gray);
+  --n-white: 240, 248, 255;
+  --n-text-color: 211, 151, 79;
+  --n-text-color-2: 184, 175, 165;
+  --n-button-bg: 211, 151, 79;
+  --n-button-bg-2: 145, 119, 87;
+  --n-bg-1: 30, 30, 30;
+  --n-bg-2: 36, 36, 36;
+  --n-bg-3: 45, 45, 45;
+  --n-bg-4: 60, 60, 60;
+  --n-hightlight: 191, 79, 10;
+
+  --positive-dark: #2c8c69;
+  --positive-light: #e3f3ec;
+  --negative-dark: #c53030;
+  --negative-light: #fff5f5;
+  --intermediate-dark: #dd6b20;
+  --intermediate-light: #fffaf0;
+  --informational-dark: #2981bf;
+  --informational-light: #e9f0f5;
+  --general-dark: #7f858d;
+  --general-light: #f0f4f8;
+  --box--boxShadow: 0px 2px 4px -1px rgba(var(--theme-area_background_dark), 0.1);
+  --box--backgroundColor: rgb(var(--n-bg-3)) !important;
+  --box--radius: var(--radius-1);
+  --solved--borderColor: 44, 140, 105;
+  --popup--radius: var(--radius-1);
+  --popup--border: 1px solid rgba(var(--theme-area_background_dark), 0.1);
+  --popup--boxShadow: 0 8px 50px rgba(0, 0, 0, 0.1),
+    0px 4px 15px rgba(0, 0, 0, 0.05);
+  --dialog--boxShadow: 0px 5px 55px rgba(var(--theme-area_background_dark), 0.4),
+    0px 7px 24px -12px rgba(var(--theme-area_background_dark), 0.7);
+  --header--height: 80px;
+  --responsive-header--height: 55px;
+  --logo--height: 100%;
+  --responsive-logo--height: var(--logo--height);
+  --primary-navigation--height: 52px;
+  --secondary-navigation--height: 50px;
+  --form-field--radius: var(--radius-1);
+  --form-field--borderColor: rgba(var(--theme-text_light), 0.4);
+  --form-field--borderHoverColor: rgba(var(--theme-text_light), 0.8);
+  --form-field--focusShadow: rgba(var(--theme-active_input_border), 0.3) 0px 0px
+    0px 4px;
+  --button--radius: var(--radius-1);
+  --trophy-first--background: #fac746;
+  --trophy-first--color: #704926;
+  --trophy-second--background: #c0c0c0;
+  --trophy-third--background: #cd7f32;
+  --container--width: 1340px;
+  --minimal_container--width: 1000px;
+  --theme-active_input_border: 52, 128, 187;
+  --theme-alternate_button: 33, 45, 26;
+  --theme-alternate_button_font: 255, 255, 255;
+  --theme-area_background: var(--n-bg-4) !important;
+  --theme-area_background_dark: var(--n-bg-3) !important;
+  --theme-area_background_light: var(--n-bg-3) !important;
+  --theme-area_background_reset: var(--n-bg-3) !important;
+  --theme-brand_primary: 255, 255, 255;
+  --theme-button_bar: var(--n-bg-3) !important;
+  --theme-comment_count: 77, 87, 64;
+  --theme-comment_count_font: 45, 55, 72;
+  --theme-featured: 44, 140, 105;
+  --theme-footer_text: 0, 0, 0;
+  --theme-header: var(--n-bg-2) !important;
+  --theme-header_text: 211, 151, 79 !important;
+  --theme-important_button: var(--n-button-bg) !important;
+  --theme-important_button_font: 255, 255, 255;
+  --theme-item_status: var(--n-text-color) !important;
+  --theme-light_button: var(--n-button-bg) !important;
+  --theme-light_button_font: 255, 255, 255;
+  --theme-link: var(--n-text-color) !important;
+  --theme-link_button: var(--n-text-color-2) !important;
+  --theme-link_hover: var(--n-hightlight) !important;
+  --theme-main_nav: var(--n-bg-3) !important;
+  --theme-main_nav_font: 211, 151, 79 !important;
+  --theme-main_nav_tab: 200, 210, 176;
+  --theme-main_nav_tab_font: 69, 69, 69;
+  --theme-mentions: 127, 132, 100;
+  --theme-mobile_back: 33, 45, 26;
+  --theme-mobile_back_font: 255, 255, 255;
+  --theme-moderated: 247, 237, 241;
+  --theme-moderated_light: 252, 247, 249;
+  --theme-moderated_text: 136, 14, 79;
+  --theme-moderated_text_light: 164, 118, 143;
+  --theme-normal_button: 77, 87, 64;
+  --theme-normal_button_font: 255, 255, 255;
+  --theme-notification_bubble: 54, 171, 128;
+  --theme-page_background: var(--n-bg-1) !important;
+  --theme-pagination_active: 77, 87, 64;
+  --theme-poll_bar: 33, 45, 26;
+  --theme-post_highlight: 0, 0, 0;
+  --theme-post_highlight_border: var(--n-hightlight) !important;
+  --theme-prefix: 89, 143, 91;
+  --theme-price: 182, 63, 63;
+  --theme-primary_button: var(--n-button-bg) !important;
+  --theme-primary_button_font: 255, 255, 255;
+  --theme-profile_header: 33, 45, 26;
+  --theme-rating_hover: 223, 151, 66;
+  --theme-rating_on: 255, 152, 0;
+  --theme-secondary_title: 130, 142, 153;
+  --theme-secondary_title_font: 255, 255, 255;
+  --theme-section_title: var(--n-bg-3) !important;
+  --theme-section_title_font: var(--n-text-color) !important;
+  --theme-selected: 228, 205, 156;
+  --theme-selected_border: 23, 126, 201;
+  --theme-step_background: 33, 45, 26;
+  --theme-tab_background: 33, 45, 26;
+  --theme-tag: 156, 161, 130;
+  --theme-tag_font: 156, 66, 33;
+  --theme-text_color: var(--n-text-color) !important;
+  --theme-text_dark: var(--n-text-color) !important;
+  --theme-text_light: var(--n-text-color-2) !important;
+  --theme-text_very_light: 255, 255, 255;
+  --theme-timeline_color: 33, 45, 26;
+  --theme-trophy_first: 250, 199, 70;
+  --theme-trophy_first_font: 112, 73, 38;
+  --theme-trophy_second: 192, 192, 192;
+  --theme-trophy_third: 205, 127, 50;
+  --theme-very_light_button: var(--n-button-bg-2) !important;
+  --theme-very_light_button_font: var(--n-white) !important;
+  --theme-widget_title_bar: var(--n-bg-4) !important;
+  --theme-widget_title_font: var(--n-text-color) !important;
 }
-body {
-  background-color: var(--n-background-dark) !important;
-  /* font-family: "Poppins", sans-serif !important; */
+
+/*
+*** @COLOR
+*/
+/* [/DISCOVER] */
+p.ipsStreamItem_status,
+p.ipsStreamItem_status a,
+ul.ipsList_inline li a,
+ul.ipsComment_controls[data-role="commentControls"] {
+  color: rgb(var(--n-text-color-2)) !important;
 }
-body span[data-role="streamTitle"],
-body span[data-role="streamBlurb"] {
-  color: var(--n-text-color-light) !important;
+/*
+*** @FONT
+*/
+.ipsDataItem_statsLarge .ipsDataItem_stats_number,
+.ipsDataItem_stats {
+  font-size: 0.75rem !important;
 }
-div#elStreamFilterForm {
+.ipsType_blendLinks a {
+  font-size: 0.8rem !important;
+}
+
+.ipsStreamItem_contentType,
+.ipsStream_withTimeline
+  .ipsStreamItem.ipsStreamItem_condensed.ipsStreamItem_contentBlock::after,
+.ipsBadge.ipsBadge_large,
+.cAuthorPane_badge--rank,
+.ipsStreamItem_header a.ipsUserPhoto,
+.ipsDataItem_lastPoster li a img {
   display: none !important;
 }
-/* text colors::primary */
-h1.ipsType_pageTitle,
-a#elSiteTitle,
-.cForumTitle > a,
-.ipsDataItem_title > a,
-.ipsDataItem_title span a span span.ipsNotificationCount,
-h4.ipsDataItem_title span a span {
-  color: var(--n-text-color) !important;
-}
-/* text colors::secondary */
-.ipsType_veryLarge,
-.ipsType_richText,
-.ipsType_richText p,
-.ipsDataItem_stats_number,
-.ipsDataItem_stats_type,
-.ipsDataItem_lastPoster__title > a,
-.ipsType_blendLinks,
-.ipsDataItem_subList li a,
-.ipsDataItem_title span i,
-ul[data-role="breadcrumbList"] li a span,
-ul.ipsList_inline li a i,
-ul.ipsList_inline li a span:not([data-notificationtype]),
-.ipsFollow a,
-.ipsItemStatus:not(.ipsItemStatus_large),
-div#elWarningInfo div span,
-div#elWarningInfo div h2,
-li.ipsDataItem span strong,
-li.ipsDataItem span a {
-  color: var(--n-text-color-light) !important;
-}
-
-/* navbar & profile & others */
-#ipsLayout_header header,
-.ipsButtonBar,
-.ipsBadge {
-  background-color: var(--n-background-light) !important;
-}
-#ipsLayout_header nav {
-  background: var(--n-third-color) !important;
-}
-nav.ipsBreadcrumb_top ul li a,
-nav.ipsBreadcrumb_top ul li a i,
-nav.ipsBreadcrumb_top ul li a span,
-nav ul[data-role="breadcrumbList"] li {
-  color: var(--n-text-color) !important;
-}
-.ipsNavBar_primary > ul > li > a {
-  color: var(--n-text-color) !important;
-}
-.ipsWidget_title,
-div#elProfileStats {
-  background: var(--n-background-lighter) !important;
-}
-.ipsBox {
-  background-color: var(--n-background-light) !important;
-}
-/* hover over cards */
-div.cUserHovercard div p,
-div.cUserHovercard div h2 a,
-div.cUserHovercard div h2 p,
-div.cUserHovercard div div div p,
-div.cUserHovercard div div div div p.ipsType_semiBold {
-  color: var(--n-text-color-light) !important;
-}
-
-/* [MENU] */
-.ipsMenu {
-  background: var(--n-background-light) !important;
-}
-.ipsType_light,
-.ipsType_large,
-.ipsMenu_title,
-.ipsMenu_item a {
-  color: var(--n-text-color-light) !important;
-}
-/*
-* [BUTTON] ::start
-*/
-/* button background */
-.ipsButton,
-.ipsButton_primary,
-.ipsButton_important,
-.ipsButton_light,
-.ipsButton_veryLight,
-.ipsPagination li a,
-.ipsButtonRow li a,
-.ipsPagination_page a,
-.ipsPagination_last a {
-  background: var(--n-button-color) !important;
-}
-a.ipsCommentCount::before,
-.ipsApp .ipsNotificationCount {
-  background: var(--n-button-color-dark) !important;
-}
-
-/* button text color */
-a.ipsButton_veryLight i {
-  color: var(--n-text-color-dark) !important;
-}
-a.ipsButton_veryLight,
-.ipsButton_light a,
-.ipsApp a.ipsButton_link {
-  color: var(--n-button-text-color) !important;
-}
-
-/* Link button color */
-ul#elUserNav li a,
-ul#elUserNav li a i {
-  color: var(--n-button-color) !important;
-}
-a.ipsButton {
-  font-weight: 600 !important;
-}
-/*
-* [BUTTON] ::end
-*/
-
-/*
-****** [/FORUM & /DISCOVER] ::start
-*/
-li.ipsDataItem {
-  background: var(--n-background-light) !important;
-  border: none !important;
-}
-div.ipsStreamItem_header div h2 span a {
-  color: var(--n-text-color) !important;
-}
-
-.ipsTabs,
-.ipsFieldRow_content input {
-  background: var(--n-background-light) !important;
-}
-.ipsTabs ul[role="tablist"] li a.ipsTabs_item {
-  background: var(--n-background-lighter) !important;
-}
-.ipsTabs_panel,
-.ipsTabs ul[role="tablist"] li a.ipsTabs_item.ipsTabs_activeItem {
-  background: var(--n-background-lightest) !important;
-}
-.ipsStream_withTimeline .ipsStreamItem_contentBlock:after {
-  display: none !important;
-}
-
-.ipsPhotoPanel.ipsPhotoPanel_mini div,
-div.ipsStreamItem_snippet,
-ul.ipsList_inline {
-  margin-left: 0 !important;
-}
-
-/* *@editor */
-div[data-ipseditor] {
-  border: none !important;
-}
-div[data-role="editorComposer"] div.ipsComposeArea_dummy {
-  color: var(--light-bg-text-color) !important;
-}
-
-/*
-***** [/FORUM & DISCOVER] ::end
-*/
-
-/*
-* [/TOPIC] ::start
-*/
-
-.ipsSpoiler,
-.ipsSpoiler_contents,
-blockquote.ipsQuote,
-.ipsApp .cke_inner,
-.cke_wysiwyg_div,
-.ipsComposeArea_editor div.ipsType_normal,
-.ipsHovercard {
-  background: var(--n-background-light) !important;
-}
-
-.ipsSpoiler_header,
-blockquote.ipsQuote .ipsQuote_citation,
-.ipsAreaBackground_light,
-.ipsComposeArea_dummy {
-  background: var(--n-background-lighter) !important;
-}
-.ipsSpoiler_header a,
-.ipsSpoiler_header span,
-a[data-action="quoteComment"],
-div[data-role="commentContent"] span.ipsType_reset strong,
-div[data-role="commentContent"] span.ipsType_reset strong time,
-aside ul li[data-role="group"] {
-  color: var(--n-text-color-lighter) !important;
-}
-
-aside.ipsComment_author h3 strong a {
-  color: var(--n-text-color-dark) !important;
-}
-
-/*
-* [/TOPIC] ::end
-*/
-
-/*
-* [/SETTINGS] ::start
-*/
-.ipsSideMenu_list li a:not(.ipsSideMenu_itemActive) {
-  color: var(--n-text-color-light) !important;
-}
-a.ipsSideMenu_itemActive {
-  background: var(--n-button-color-dark) !important;
-}
-a.ipsSideMenu_item:not(.ipsSideMenu_itemActive):hover,
-ul.ipsSideMenu_list li.ipsSideMenu_item a:hover {
-  background: var(--n-button-color) !important;
-  color: var(--n-white) !important;
-}
-ul.ipsDataList li.ipsDataItem div.ipsDataItem_main,
-ul.ipsDataList li.ipsDataItem div h4 strong {
-  color: var(--n-text-color-light) !important;
-}
-ul.ipsDataList li.ipsDataItem div.ipsDataItem_main a {
-  color: var(--n-text-color-lighter) !important;
-}
-/*
-* [/SETTINGS] ::end
-*/
-
-/* photo */
-.ipsStreamItem_header a.ipsUserPhoto {
-  display: none !important;
-}
-
 /* main category row */
-li.cForumRow {
+
+li.cForumRow,
+.ipsDataItem {
   padding: 0.5rem !important;
-}
-.ipsType_sectionTitle {
-  background: var(--n-) !important;
-}
-.ipsStreamItem_time {
-  background: var(--n-orange) !important;
-  box-shadow: none !important;
-  margin-left: 0 !important;
-}
-.ipsItemStatus.ipsItemStatus_large {
-  background-color: var(--n-orange) !important;
-}
-.ipsStreamItem_condensed .ipsPhotoPanel_mini > div {
-  margin-left: 0 !important;
+  border: unset !important;
 }
 .ipsDataList_large,
 .ipsDataItem_main,
@@ -297,43 +170,28 @@ li.cForumRow {
 .ipsDataItem {
   padding: 0.5rem !important;
 }
-
-.ipsDataItem_statsLarge .ipsDataItem_stats_number,
-.ipsDataItem_stats {
-  font-size: 0.75rem !important;
+.ipsStream_withTimeline .ipsStreamItem {
+  margin-left: 0 !important;
 }
-.ipsDataItem_lastPoster li a.ipsUserPhoto_tiny {
-  display: none !important;
-}
-.ipsDataItem_lastPoster li.ipsType_blendLinks a {
-  font-weight: 500 !important;
-}
-.ipsDataItem_lastPoster li.ipsType_blendLinks a:hover {
-  color: inherit;
-}
-.ipsAreaBackground_reset {
-  background: var(--n-background-light) !important;
-}
-
 .ipsStream.ipsStream_withTimeline {
   border-left: 0px !important;
   margin-left: 0px !important;
 }
-.ipsStream_withTimeline .ipsStreamItem {
-  margin-left: 0px !important;
+.ipsStreamItem.ipsStreamItem_condensed .ipsStreamItem_stats {
+  border-left: unset !important;
 }
-.ipsStreamItem_contentType {
-  display: none !important;
+.ipsStreamItem_time {
+  background: var(--n-orange) !important;
+  box-shadow: none !important;
+  margin-left: 0 !important;
 }
-.ipsStream_withTimeline
-  .ipsStreamItem.ipsStreamItem_condensed.ipsStreamItem_contentBlock::after {
-  display: none !important;
+.ipsUserPhoto img {
+  object-position: left !important;
+}
+.ipsStreamItem_condensed .ipsPhotoPanel_mini > div {
+  margin-left: 0 !important;
 }
 
-/* topic related */
-.cTopicList .ipsDataItem_icon {
-  display: none !important;
-}
 form article {
   padding: 0.5rem !important;
 }
@@ -349,18 +207,6 @@ form article aside ul li {
 }
 form article aside ul li[data-role="stats"].ipsMargin_top {
   margin-top: 0.5rem !important;
-}
-.ipsType_blendLinks a {
-  font-size: 0.8rem !important;
-}
-.ipsComment_author {
-  padding: 0 !important;
-}
-.ipsBadge.ipsBadge_large {
-  display: none !important;
-}
-.cAuthorPane_badge--rank {
-  display: none !important;
 }
 .cPost .cPost_contentWrap {
   display: flex !important;
@@ -379,6 +225,11 @@ form article aside ul li[data-role="stats"].ipsMargin_top {
   transition: scale 0.3s ease-in !important;
 }
 
+/* @EDITOR */
+.ipsType_richText a {
+  text-decoration: none !important;
+}
+
 /* @flash message */
 div#elFlashMessage {
   background: var(--n-button-color-dark) !important;
@@ -394,8 +245,12 @@ div#elFlashMessage div div[data-role="flashMessage"] span img.ipsUserPhoto {
   height: 35px !important;
 }
 
-/* topics bottom nav */
-.ipsPager_prev a,
-.ipsPager_next a {
-  color: aliceblue !important;
+/* custom class */
+.n-flex-center {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.n-text-color {
+  color: rgb(var(--n-text-color)) !important;
 }

@@ -24,5 +24,5 @@ chrome.storage.sync.get("paticikTheme").then((res) => {
   const active = Array.from(document.querySelectorAll("button")).find(
     (e) => e.value == res.paticikTheme
   );
-  active.classList.add("btn-active");
+  if (!!active) active.classList.add("btn-active");
 });

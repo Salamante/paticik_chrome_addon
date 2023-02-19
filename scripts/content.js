@@ -1,142 +1,157 @@
-initGeneral();
-async function initGeneral() {
-  console.log("%cINIT GENERAL", "font-size: 30px; color: tomato;");
+init();
 
-  if (/\/topic/.test(window.location.pathname)) initTopic();
-}
+async function init() {
+  const that = this;
+  const topic_page = /\/topic/.test(window.location.pathname);
+  const discover_page = /\/discover/.test(window.location.pathname);
+  const home_page = /\/home/.test(window.location.pathname);
 
-function initTopic() {
-  console.log("%cINIT TOPIC", "font-size: 30px; color: tomato;");
-  onTopicLoad();
+  const _topic = {
+    init() {
+      const a = document.body.getAttribute("_topic-initialized");
 
-  return;
-  document.querySelectorAll(".ipsEmbeddedOther > iframe").forEach((e) => {
-    e.addEventListener("load", (el) => {
-      console.log("TEST TEST TEST");
-      return;
-      if (e.src.includes("reddit")) {
-        const link = e.src.match(/https:\/\/www\.reddit\.com.*/gm);
-        const p = document.createDocumentFragment("p");
-        p.innerHTML = `Reddit Link: ${link}`;
-        e.closest("div.commentContent").appendChild(p);
-        e.remove();
-      }
-    });
-  });
-}
-function onTopicLoad() {
-  console.log("%cDOM Content load", "font-size: 30px; color: tomato;");
-  observePagination();
-  iframeController({ delay: 200 });
-  // gifController({ delay: 200 });
-}
-function addListenerToPagination() {
-  const elList = Array.from(
-    document.querySelectorAll("ul.ipsPagination > li > a")
-  );
-  for (let i = 0; i < elList.length; i++) {
-    elList[i].addEventListener("click", paginationHandler, false);
-    elList[i].setAttribute("data-listening", "true");
-  }
-}
-async function iframeController({ delay }) {
-  if (!!delay) await sleep(delay);
-  document.querySelector("#comments").setAttribute("data-checkingIframe", true);
-  let iframeList = Array.from(document.querySelectorAll("iframe"));
+      document.body.setAttribute("_topic-initialized", true);
+      this.observeHydration();
+      this.replaceAvatar();
+      this.replaceEditorIcons();
+    },
 
-  // if (iframeList.length <= 0) return;
-  const update = () => {
-    const int = setInterval(() => {
-      iframeList = Array.from(document.querySelectorAll("iframe"));
-
-      for (let i = 0; i < iframeList.length; i++) {
-        const src = !!iframeList[i].getAttribute("data-embed-src")
-          ? iframeList[i].getAttribute("data-embed-src")
-          : iframeList[i].src;
-        if (src.includes("reddit")) {
-          const link = src.match(/https:\/\/www\.reddit\.com.*/gm);
-          const title = src.match(/\/comments\/[0-9a-z]+\/([a-z_]+)/i)[1];
-          const p = document.createElement("p");
-          p.id = "iframe-modified-content";
-          p.innerHTML = `Reddit Link: <a target="_blank" href="${link}"><strong>${title}</strong></a>`;
-          iframeList[i]
-            .closest("div[data-role='commentContent']")
-            .appendChild(p);
-          iframeList[i].remove();
+    observeHydration() {
+      const target = document.getElementById("comments");
+      const config = { attributes: true, childList: true, subtree: true };
+      const cb = (mutationList, observer) => {
+        for (const mutation of mutationList) {
+          if (
+            mutation.type === "attributes" &&
+            mutation.attributeName != "data-checkingiframe"
+          ) {
+            const comments = document.querySelector("#comments");
+            const s = comments.getAttribute("data-checkingIframe");
+            if (!!s) return;
+            else this.iframeController({ delay: 500 });
+          }
         }
-      }
-      if (
-        !!Array.from(document.querySelectorAll("iframe")).find(
-          (e) =>
-            e.src.includes("reddit") ||
-            (e.getAttribute("data-embed-src") &&
-              e.getAttribute("data-embed-src").includes("reddit"))
+      };
+
+      const observer = new MutationObserver(cb);
+      observer.observe(target, config);
+    },
+
+    async iframeController(delay) {
+      if (!!delay) await that.sleep(delay);
+
+      const comments = document.querySelector("#comments");
+
+      comments.setAttribute("data-checkingIframe", true);
+      let iframeList = Array.from(document.querySelectorAll("iframe"));
+
+      // if (iframeList.length <= 0) return;
+      const update = () => {
+        const int = setInterval(() => {
+          iframeList = Array.from(document.querySelectorAll("iframe"));
+          const redditList = iframeList.filter(
+            (e) =>
+              e.src.includes("reddit") ||
+              (!!e.getAttribute("data-embed-src") &&
+                e.getAttribute("data-embed-src").includes("reddit"))
+          );
+          if (redditList.length <= 0) {
+            comments.removeAttribute("data-checkingIframe");
+            clearInterval(int);
+            return;
+          }
+
+          for (let i = 0; i < redditList.length; i++) {
+            const src = !!redditList[i].getAttribute("data-embed-src")
+              ? redditList[i].getAttribute("data-embed-src")
+              : redditList[i].src;
+            const link = src.match(/https:\/\/www\.reddit\.com.*/gm);
+            let title = src.match(/\/comments\/[0-9a-z]+\/([a-z_]+)/i);
+
+            if (!!title && title.length > 0) title = title[1];
+            else if (
+              !!redditList[i].contentWindow.document.body.querySelector("a")
+            ) {
+              title =
+                redditList[i].contentWindow.document.body.querySelector(
+                  "a"
+                ).innerText;
+            } else title = "Some reddit post";
+            const p = document.createElement("p");
+            p.id = "iframe-modified-content";
+            p.innerHTML = `Reddit Link: <a target="_blank" href="${link}"><strong>${title}</strong></a>`;
+            redditList[i]
+              .closest("div[data-role='commentContent']")
+              .appendChild(p);
+            redditList[i].remove();
+          }
+        }, 500);
+      };
+      update();
+    },
+
+    replaceAvatar() {
+      const newImg = chrome.runtime.getURL("avatar.jpg");
+      const arr = Array.from(
+        document.querySelectorAll(
+          "div.cAuthorPane_photoWrap > a.ipsUserPhoto > img"
         )
-      ) {
-        return;
-      }
-      document
-        .querySelector("#comments")
-        .removeAttribute("data-checkingIframe");
-      clearInterval(int);
-    }, 500);
-  };
-  update();
-}
+      );
+      arr.forEach((e) => (e.src = newImg));
+    },
 
-async function gifController({ delay }) {
-  if (!!delay) await sleep(delay);
-  const commentList = document.querySelectorAll(
-    "div[data-role='commentContent']"
-  );
+    replaceEditorIcons() {
+      const int = setInterval(() => {
+        if (!!!document.querySelector("#cke_1_top")) return;
+        document.querySelector("#cke_1_top").classList.remove("cke_reset_all");
+        const s = [
+          "cke_15",
+          "cke_16",
+          "cke_17",
+          "cke_18",
+          "cke_19",
+          "cke_20",
+          "cke_21",
+          "cke_22",
+          "cke_23",
+          "cke_24",
+          "cke_25",
+        ];
+        const fa = [
+          "fa-link",
+          "fa-quote-right",
+          "fa-code",
+          "fa-face-grin",
+          "fa-list",
+          "fa-list-ol",
+          "fa-align-left",
+          "fa-align-justify",
+          "fa-palette",
+          "fa-eye-slash",
+          "fa-eye",
+        ];
+        for (let i = 0; i < s.length; i++) {
+          const el = document.getElementById(s[i]);
+          if (!!!el || el.classList.contains("n-flex-center")) continue;
+          el.classList.add("n-flex-center");
+          const p = document.createElement("i");
+          p.classList.add("fa-solid", fa[i], "fa-lg", "n-text-color");
+          el.querySelector("span:nth-child(1)").remove();
+          el.prepend(p);
+        }
+        // const cke_15 = document.querySelector("#cke_15");
+        // cke_15.classList.add("n-flex-center");
+        // const p = document.createElement("i");
+        // p.classList.add("fa-solid", "fa-link", "fa-lg", "n-text-color");
+        // cke_15.querySelector("span:nth-child(1)").remove();
+        // cke_15.prepend(p);
 
-  for (let i = 0; i < commentList.length; i++) {
-    const imgList = commentList[i].querySelectorAll("a");
-
-    imgList.forEach((e) => {
-      if (e.href.includes(".gifv"))
-        e.addEventListener("mouseover", () => {
-          e.style.position = "relative";
-        });
-      e.addEventListener("mouseleave", () => {
-        // document.querySelector("#tooltip-frame").remove();
-      });
-    });
-  }
-}
-
-function observeIframe({ el, cb }) {
-  const config = { attributes: true, childList: false, subtree: false };
-  const obsCb = (mutationList, observer) => {
-    for (const mutation of mutationList) {
-    }
-  };
-  const observer = new MutationObserver(obsCb);
-  observer.observe(el.closest("div[data-role='commentContent']"), config);
-}
-
-function observePagination() {
-  const target = document.getElementById("comments");
-  const config = { attributes: true, childList: true, subtree: false };
-  const cb = (mutationList, observer) => {
-    for (const mutation of mutationList) {
-      if (
-        mutation.type === "attributes" &&
-        mutation.attributeName === "animating"
-      ) {
-        const comments = document.querySelector("#comments");
-        const s = comments.getAttribute("data-checkingIframe");
-        if (!!!s) iframeController({ delay: 500 });
-        gifController({ delay: 500 });
-        return;
-      }
-    }
+        clearInterval(int);
+      }, 500);
+    },
   };
 
-  const observer = new MutationObserver(cb);
-  observer.observe(target, config);
-
-  // observer.disconnect();
+  if (topic_page) _topic.init();
 }
 
 /* Utils */
