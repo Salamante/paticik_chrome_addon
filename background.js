@@ -3,7 +3,8 @@ chrome.tabs.onCreated.addListener(() => {
 });
 
 chrome.webNavigation.onCommitted.addListener(async (details) => {
-  console.log("Host URL: ", details.url);
+  console.log("Host URL: ", details);
+  if (details.frameId != 0) return;
   chrome.tabs.query({ url: "https://forum.paticik.com/*" }, async (tabs) => {
     const selector = await chrome.storage.sync.get("paticikTheme");
     tabs.forEach((tab) => {
@@ -20,17 +21,13 @@ chrome.webNavigation.onCommitted.addListener(async (details) => {
 });
 
 chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
+  if (details.frameId != 0) return;
   chrome.tabs.query({ url: "https://forum.paticik.com/*" }, async (tabs) => {
     const selector = await chrome.storage.sync.get("paticikTheme");
     tabs.forEach((tab) => {
       chrome.scripting.executeScript({
         target: { tabId: tab.id, allFrames: false },
-        func: () => {
-          document.querySelectorAll(".fa").forEach((e) => {
-            e.classList.remove("fa");
-            e.classList.add("fa-solid");
-          });
-        },
+        files: [`scripts/onLoad.js`],
       });
     });
   });

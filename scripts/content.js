@@ -3,6 +3,7 @@ init();
 async function init() {
   const that = this;
   const topic_page = /\/topic/.test(window.location.pathname);
+  const forum_page = /\/forum/.test(window.location.pathname);
   const discover_page = /\/discover/.test(window.location.pathname);
   const home_page = /\/home/.test(window.location.pathname);
 
@@ -21,6 +22,11 @@ async function init() {
       const config = { attributes: true, childList: true, subtree: true };
       const cb = (mutationList, observer) => {
         for (const mutation of mutationList) {
+          if (document.querySelectorAll(".fa").length > 0)
+            document.querySelectorAll(".fa").forEach((e) => {
+              e.classList.remove("fa");
+              e.classList.add("fa-solid");
+            });
           if (
             mutation.type === "attributes" &&
             mutation.attributeName != "data-checkingiframe"
@@ -151,7 +157,30 @@ async function init() {
     },
   };
 
+  const _forum = {
+    init() {
+      this.observeHydration();
+    },
+    observeHydration() {
+      const target = document.querySelector("div.ipsPageHeader > header");
+      const config = { attributes: true, childList: true, subtree: true };
+      const cb = (mutationList, observer) => {
+        for (const mutation of mutationList) {
+          if (document.querySelectorAll(".fa").length > 0)
+            document.querySelectorAll(".fa").forEach((e) => {
+              e.classList.remove("fa");
+              e.classList.add("fa-solid");
+            });
+        }
+      };
+
+      const observer = new MutationObserver(cb);
+      observer.observe(target, config);
+    },
+  };
+
   if (topic_page) _topic.init();
+  if (forum_page) _forum.init();
 }
 
 /* Utils */
