@@ -5,16 +5,126 @@ async function init() {
   const topic_page = /\/topic/.test(window.location.pathname);
   const forum_page = /\/forum/.test(window.location.pathname);
   const discover_page = /\/discover/.test(window.location.pathname);
-  const home_page = /\/home/.test(window.location.pathname);
+  const home_page = window.location.pathname === "/";
+
+  const _home = {
+    init() {
+      this.reArrange();
+
+      const btnList = document.querySelectorAll(
+        "li.cForumRow > div.ipsDataItem_icon"
+      );
+      console.log("🚀 ~ file: content.js:17 ~ init ~ btnList:", btnList);
+      btnList.forEach((el) => {
+        el.style = "cursor: pointer";
+        const target = !!el.querySelector("a")
+          ? el.querySelector("a")
+          : el.querySelector("span");
+        // if (!!target.getAttribute("is-favorite")) return;
+        target.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          if (e.target.closest("li").getAttribute("is-favorite")) {
+            e.target.closest("li").removeAttribute("is-favorite");
+            const id = e.target.closest("li").getAttribute("data-forumid");
+            const l = JSON.parse(localStorage.getItem("favorite_list"));
+            l.splice(l.indexOf(id), 1);
+            localStorage.setItem("favorite_list", JSON.stringify(l));
+            window.location.reload();
+            return;
+          } else {
+            e.target.closest("li").setAttribute("is-favorite", true);
+
+            const d = e.target.closest("li").getAttribute("data-forumid");
+            const list = localStorage.getItem("favorite_list");
+            if (!!!list) {
+              localStorage.setItem("favorite_list", `[${d}]`);
+            } else {
+              const l = JSON.parse(list);
+              if (!l.includes(d)) {
+                l.push(d);
+                localStorage.setItem("favorite_list", JSON.stringify(l));
+              }
+            }
+          }
+          this.reArrange();
+        });
+      });
+    },
+
+    reArrange() {
+      let fav = localStorage.getItem("favorite_list");
+      if (!!fav && fav.length > 0)
+        fav = JSON.parse(localStorage.getItem("favorite_list"));
+      else return;
+
+      let sub;
+      let ol;
+      let h2;
+      if (!!!document.querySelector("#favorite-list")) {
+        sub = document.createElement("li");
+        sub.classList.add(
+          "cForumRow",
+          "ipsBox",
+          "ipsSpacer_bottom",
+          "ipsResponsive_pull"
+        );
+        sub.setAttribute("data-categoryid", 1);
+        sub.setAttribute("id", "favorite-list");
+        sub.setAttribute("is-favorite", true);
+
+        h2 = document.createElement("h2");
+        const a1 = document.createElement("a");
+        a1.href = "#";
+        a1.classList.add(
+          "ipsPos_right",
+          "ipsJS_show",
+          "ipsType_noUnderline",
+          "cForumToggle"
+        );
+        a1.setAttribute("data-action", "toggleCategory");
+        const a2 = document.createElement("a");
+        a2.innerText = "Favori Kategoriler";
+        h2.classList.add(
+          "ipsType_sectionTitle",
+          "ipsType_reset",
+          "cForumTitle"
+        );
+        h2.appendChild(a2);
+        h2.appendChild(a1);
+        sub.prepend(h2);
+
+        const ol = document.createElement("ol");
+        ol.classList.add(
+          "ipsDataList",
+          "ipsDataList_large",
+          "ipsDataList_zebra"
+        );
+        ol.setAttribute("data-role", "forums");
+        sub.appendChild(ol);
+      } else sub = document.querySelector("#favorite-list");
+      console.log("🚀 ~ file: content.js:67 ~ reArrange ~ sub:", sub);
+
+      fav.forEach((e) => {
+        const el = document.querySelector(`li[data-forumid='${e}']`);
+        el.setAttribute("is-favorite", true);
+        sub.querySelector("ol").appendChild(el);
+      });
+
+      document.querySelector("ol.cForumList").prepend(sub);
+    },
+  };
 
   const _topic = {
     init() {
       const a = document.body.getAttribute("_topic-initialized");
 
       document.body.setAttribute("_topic-initialized", true);
+      this.replaceEditorIcons();
       this.observeHydration();
       this.replaceAvatar();
       this.replaceEditorIcons();
+      // this.imgPreviewModal();
     },
 
     observeHydration() {
@@ -97,13 +207,18 @@ async function init() {
     },
 
     replaceAvatar() {
-      const newImg = chrome.runtime.getURL("avatar.jpg");
-      const arr = Array.from(
-        document.querySelectorAll(
-          "div.cAuthorPane_photoWrap > a.ipsUserPhoto > img"
-        )
-      );
-      arr.forEach((e) => (e.src = newImg));
+      let selector = "";
+      chrome.storage.sync.get("paticikTheme").then((res) => {
+        selector =
+          res.paticikTheme == "pati-hello-kitty" ? "kitty.jpg" : "avatar.jpg";
+        const newImg = chrome.runtime.getURL(selector);
+        const arr = Array.from(
+          document.querySelectorAll(
+            "div.cAuthorPane_photoWrap > a.ipsUserPhoto > img"
+          )
+        );
+        arr.forEach((e) => (e.src = newImg));
+      });
     },
 
     replaceEditorIcons() {
@@ -155,6 +270,25 @@ async function init() {
         clearInterval(int);
       }, 500);
     },
+    imgPreviewModal() {
+      const comments = document.querySelector("#comments");
+      comments.querySelectorAll("img").forEach((e) => {
+        const attr = e.getAttribute("is-listening");
+        if (attr) return;
+
+        e.addEventListener("click", (event) => {
+          e.setAttribute("is-listening", true);
+          event.preventDefault();
+          event.stopPropagation();
+          e.style.scale = "2";
+        });
+      });
+      if (document.querySelectorAll(".fa").length > 0)
+        document.querySelectorAll(".fa").forEach((e) => {
+          e.classList.remove("fa");
+          e.classList.add("fa-solid");
+        });
+    },
   };
 
   const _forum = {
@@ -179,6 +313,7 @@ async function init() {
     },
   };
 
+  if (home_page) _home.init();
   if (topic_page) _topic.init();
   if (forum_page) _forum.init();
 }

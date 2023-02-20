@@ -1,7 +1,10 @@
 const onContentLoad = {
   init() {
+    if (!!document.body.getAttribute("on-content-load")) return;
+
     this._icon();
     this._date();
+    document.body.setAttribute("on-content-load", true);
   },
   _icon() {
     document.querySelectorAll(".fa").forEach((e) => {
