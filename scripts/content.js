@@ -125,12 +125,17 @@ async function init() {
       this.replaceAvatar();
       this.replaceEditorIcons();
       // this.imgPreviewModal();
+
+      document.body.addEventListener("beforeunload", () => {
+        alert("UNLOAD EVENT IS FIRED");
+      });
     },
 
     observeHydration() {
       const target = document.getElementById("comments");
       const config = { attributes: true, childList: true, subtree: true };
       const cb = (mutationList, observer) => {
+        this.avatarController();
         for (const mutation of mutationList) {
           if (document.querySelectorAll(".fa").length > 0)
             document.querySelectorAll(".fa").forEach((e) => {
@@ -171,12 +176,22 @@ async function init() {
               (!!e.getAttribute("data-embed-src") &&
                 e.getAttribute("data-embed-src").includes("reddit"))
           );
-          if (redditList.length <= 0) {
+          const twitterList = iframeList.filter(
+            (e) =>
+              e.getAttribute("data-embed-src")?.includes("twitter") ||
+              e.src?.includes("twitter")
+          );
+          console.log(
+            "🚀 ~ file: content.js:180 ~ int ~ twitterList:",
+            twitterList
+          );
+          if (redditList.length <= 0 && twitterList.length <= 0) {
             comments.removeAttribute("data-checkingIframe");
             clearInterval(int);
             return;
           }
 
+          // update reddit embeds
           for (let i = 0; i < redditList.length; i++) {
             const src = !!redditList[i].getAttribute("data-embed-src")
               ? redditList[i].getAttribute("data-embed-src")
@@ -201,9 +216,47 @@ async function init() {
               .appendChild(p);
             redditList[i].remove();
           }
+
+          // update twitter embeds
+          for (let i = 0; i < twitterList.length; i++) {
+            const src_norender = twitterList[i].getAttribute("data-embed-src");
+            const src_render = twitterList[i].src;
+            const link =
+              (!!src_norender &&
+                new URLSearchParams(src_norender).get("url")) ||
+              src_render;
+
+            const p = document.createElement("p");
+            p.innerHTML = `Twitter link: <a target="_blank" href="${link}"><strong>Tweet</strong></a>`;
+            twitterList[i].closest("div[data-role='commentContent']").append(p);
+            twitterList[i].remove();
+          }
         }, 500);
       };
       update();
+    },
+
+    avatarController() {
+      if (window.isCheckingAvatar) return;
+
+      window.isCheckingAvatar = true;
+      const arr = Array.from(
+        document.querySelectorAll(
+          "div.cAuthorPane_photoWrap > a.ipsUserPhoto > img"
+        )
+      );
+      if (arr.length <= 0) {
+        window.isCheckingAvatar = false;
+        return;
+      }
+      const any = arr.find((e) => !e.src.includes("chome-extension"));
+      if (!!any) this.replaceAvatar();
+      setTimeout(() => {
+        window.isCheckingAvatar = false;
+      }, 50);
+    },
+    twitterController() {
+      document;
     },
 
     replaceAvatar() {

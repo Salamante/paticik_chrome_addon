@@ -225,9 +225,11 @@ form article aside ul li[data-role="stats"].ipsMargin_top {
   transition: scale 0.3s ease-in !important;
 }
 
-/* @EDITOR */
-.ipsType_richText a {
+/* @EDITOR & QUOTE */
+.ipsType_richText a,
+.ipsQuote_citation {
   text-decoration: none !important;
+  color: rgb(var(--n-text-color-2)) !important;
 }
 
 /* @flash message */
